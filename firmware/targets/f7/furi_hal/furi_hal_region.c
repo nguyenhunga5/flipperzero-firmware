@@ -1,5 +1,6 @@
 #include <furi_hal_region.h>
 #include <furi_hal_version.h>
+#include <stdio.h>
 
 const FuriHalRegion furi_hal_region_zero = {
     .country_code = "00",
@@ -73,17 +74,18 @@ const FuriHalRegion furi_hal_region_jp = {
 static const FuriHalRegion* furi_hal_region = NULL;
 
 void furi_hal_region_init() {
-    FuriHalVersionRegion region = furi_hal_version_get_hw_region();
+//    FuriHalVersionRegion region = furi_hal_version_get_hw_region();
 
-    if(region == FuriHalVersionRegionUnknown) {
-        furi_hal_region = &furi_hal_region_zero;
-    } else if(region == FuriHalVersionRegionEuRu) {
-        furi_hal_region = &furi_hal_region_eu_ru;
-    } else if(region == FuriHalVersionRegionUsCaAu) {
-        furi_hal_region = &furi_hal_region_us_ca_au;
-    } else if(region == FuriHalVersionRegionJp) {
-        furi_hal_region = &furi_hal_region_jp;
-    }
+//    if(region == FuriHalVersionRegionUnknown) {
+//        furi_hal_region = &furi_hal_region_zero;
+//    } else if(region == FuriHalVersionRegionEuRu) {
+//        furi_hal_region = &furi_hal_region_eu_ru;
+//    } else if(region == FuriHalVersionRegionUsCaAu) {
+//        furi_hal_region = &furi_hal_region_us_ca_au;
+//    } else if(region == FuriHalVersionRegionJp) {
+//        furi_hal_region = &furi_hal_region_jp;
+//    }
+    furi_hal_region = &furi_hal_region_zero;
 }
 
 const FuriHalRegion* furi_hal_region_get() {
@@ -107,15 +109,7 @@ const char* furi_hal_region_get_name() {
 }
 
 bool furi_hal_region_is_frequency_allowed(uint32_t frequency) {
-    if(!furi_hal_region) {
-        return false;
-    }
-
-    const FuriHalRegionBand* band = furi_hal_region_get_band(frequency);
-    if(!band) {
-        return false;
-    }
-
+    printf("furi_hal_region_is_frequency_allowed for frequency %lu Hz\r\n", frequency);
     return true;
 }
 
